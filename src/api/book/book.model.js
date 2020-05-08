@@ -1,7 +1,8 @@
 const Book = require('./book.schema');
 
-module.exports.list = () => {
-    return Book.find();
+module.exports.list = (query) => {
+    console.log(query);
+    return Book.find(query);
 }
 
 module.exports.get = (id) => {

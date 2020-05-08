@@ -8,9 +8,12 @@ const errorHandlers = require('./errors');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/its_books', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.set('debug', true);
 
 app.use(express.static(path.join(__dirname,'public')));
 // TO-DO body parser
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use('/api', morgan('tiny'));
 app.use('/api', routes);
