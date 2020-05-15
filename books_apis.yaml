@@ -1,0 +1,105 @@
+swagger: "2.0"
+info:
+  description: "Book example apis"
+  version: "1.0.0"
+  title: "Books APIs"
+host: "localhost:3000"
+basePath: "/api"
+tags:
+- name: "book"
+schemes:
+- "http"
+paths:
+  /books:
+    post:
+      tags:
+      - "book"
+      summary: "crea un nuovo libro"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: book
+        schema:
+          type: object
+          required:
+            - title
+          properties:
+            title:
+              type: string
+            author:
+              type: string
+            description:
+              type: string
+            thumbnail:
+              type: string
+      responses:
+        "201":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+    get:
+      tags:
+      - "book"
+      summary: "Ritorna una lista di libri"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "author"
+        in: "query"
+        description: "Filtra i libri per autore"
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Book"
+  /books/{id}:
+    get:
+      tags:
+      - "book"
+      summary: "dettagli del libro"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: id del libro
+      responses:
+        "201":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Book"
+definitions:
+  Book:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "id univoco generato lato server"
+      title:
+        type: "string"
+      authors:
+        type: array
+        items:
+          type: string
+      description:
+        type: "string"
+      imageLinks:
+        type: object
+        properties:
+          thumbnail:
+            type: string
