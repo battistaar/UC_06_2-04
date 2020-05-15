@@ -3,9 +3,9 @@ module.exports.getBook = (req, res, next) => {
 }
 
 module.exports.listBooks = (req, res) => {
-    res.json([]);
+    next(new Error('Not Found'));
 }
 
 module.exports.addBook = (req, res, next) => {
-    res.json({});
+    next(new Error('Not Found'));
 }
