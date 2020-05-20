@@ -5,6 +5,9 @@ const morgan = require('morgan');
 const app = express();
 const routes = require('./api/router');
 const errorHandlers = require('./errors');
+const passport = require('passport');
+const passportConfig = require('./api/auth/passport-config');
+const authRoutes = require('./api/auth/auth.router');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/its_books', {useNewUrlParser: true, useUnifiedTopology: true});
@@ -14,8 +17,13 @@ app.use(express.static(path.join(__dirname,'public')));
 // TO-DO body parser
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+passportConfig.setup(passport);
+app.use(passport.initialize());
+
 app.set('view engine', 'ejs');
 app.use('/api', morgan('tiny'));
+app.use(authRoutes);
 app.use('/api', routes);
 
 

@@ -1,3 +1,5 @@
 module.exports.internalError = (err, req, res, next) => {
-    // TO-DO
+    console.error(err);
+    res.status(500);
+    res.send(err.message);
 }
